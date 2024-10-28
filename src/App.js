@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
+  const { user, login } = useAuth();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      login(token); 
+    }
+  }, [login]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/dashboard"
+          element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
