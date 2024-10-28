@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import userData from "../../data/credentials.json"
+import userData from "../../data/users.json";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
     );
 
     if (user) {
-     const mockToken = JSON.stringify({ username: user.username, role: user.role });
+      const mockToken = JSON.stringify({ username: user.username, role: user.role });
       login(mockToken);
       navigate("/dashboard");
     } else {
@@ -26,8 +27,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-700 via-purple-600 to-pink-500">
-      <div className="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg shadow-lg p-8 max-w-md w-full text-center space-y-6">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#1434A4] via-[#5D3FD3] to-[#6082B6]">
+      <div className="bg-white bg-opacity-20 backdrop-blur-md rounded-lg shadow-lg p-8 max-w-md w-full text-center space-y-6">
         <h2 className="text-3xl font-semibold text-white">Login</h2>
         <p className="text-gray-200">
           Welcome back! Please login to your account.
@@ -39,7 +40,7 @@ const Login = () => {
             placeholder="Username or Email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg bg-white bg-opacity-40 text-white placeholder-gray-200 focus:ring-2 focus:ring-purple-300"
+            className="w-full px-4 py-2 rounded-lg bg-white bg-opacity-40 text-white placeholder-gray-200 focus:ring-2 focus:ring-[#5D3FD3]"
           />
           <div className="relative w-full">
             <input
@@ -47,7 +48,7 @@ const Login = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-white bg-opacity-40 text-white placeholder-gray-200 focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg bg-white bg-opacity-40 text-white placeholder-gray-200 focus:ring-2 focus:ring-[#5D3FD3]"
             />
             <button
               type="button"
@@ -63,7 +64,7 @@ const Login = () => {
           </div>
           <button
             onClick={handleLogin}
-            className="w-full py-2 mt-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-l hover:from-pink-500 hover:to-purple-500 transition duration-300"
+            className="w-full py-2 mt-4 bg-[#1434A4] text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-r hover:from-[#6082B6] hover:to-[#5D3FD3] transition duration-300"
           >
             Login
           </button>

@@ -1,18 +1,35 @@
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
-const useWebSocket = (url) => {
-  const [data, setData] = useState(null);
+const useWebSocket = (url, event = 'data') => {
+  const [data, setData] = useState([]);
+  const [status, setStatus] = useState('disconnected');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const socket = io(url);
-    socket.on('data', (newData) => setData(newData));
+
+    setStatus('connecting');
+    socket.on('connect', () => setStatus('connected'));
+    socket.on('disconnect', () => setStatus('disconnected'));
+    socket.on('reconnect_attempt', () => setStatus('reconnecting'));
+    socket.on('connect_error', (err) => {
+      setError(err.message);
+      setStatus('error');
+    });
+
+    // Listen for incoming data on the specified event channel
+    socket.on(event, (newData) => {
+      setData((prevData) => [...prevData, newData]); 
+    });
+
     return () => {
       socket.disconnect();
+      setStatus('disconnected');
     };
-  }, [url]);
+  }, [url, event]);
 
-  return data;
+  return { data, status, error };
 };
 
 export default useWebSocket;
