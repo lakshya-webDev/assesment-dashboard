@@ -6,8 +6,14 @@ export function useAuth() {
 
   const login = (token) => {
     const decoded = decodeToken(token);
-    setUser(decoded);
-    localStorage.setItem('token', token);
+    console.log('Logging in with token:', token);
+    if (decoded) {
+      setUser(decoded);
+      localStorage.setItem('token', token);
+      console.log('User set:', decoded);
+    } else {
+      console.log('Decoded token was null or undefined');
+    }
   };
 
   const logout = () => {
@@ -17,14 +23,19 @@ export function useAuth() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    console.log(token, "TOKEN ");
     if (token) {
       const decoded = decodeToken(token);
-      // Check if decoded value is not null before setting user
+      console.log('Decoded Token:', decoded);
       if (decoded) {
         setUser(decoded);
+      } else {
+        console.log('Failed to decode token from localStorage');
       }
+    } else {
+      console.log('No token found in localStorage');
     }
-  }, []); // This only runs once when the component mounts
+  }, []);
 
   return { user, login, logout };
 }

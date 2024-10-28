@@ -1,0 +1,21 @@
+[
+    {
+      "path": "/dashboard",
+      "label": "Dashboard",
+      "icon": "Squares2X2Icon",
+      "role": "all"
+    },
+    {
+      "path": "/users",
+      "label": "Users",
+      "icon": "UserGroupIcon",
+      "role": "Admin"
+    },
+    {
+      "path": "#settings",
+      "label": "Settings",
+      "icon": "CogIcon",
+      "role": "all"
+    }
+  ]
+  

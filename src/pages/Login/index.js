@@ -16,10 +16,10 @@ const Login = () => {
     const user = userData.find(
       (u) => u.username === username && u.password === password
     );
-
+  
     if (user) {
       const mockToken = JSON.stringify({ username: user.username, role: user.role });
-      login(mockToken);
+      login(mockToken); 
       navigate("/dashboard");
     } else {
       setError("Invalid username or password");
@@ -28,7 +28,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#1434A4] via-[#5D3FD3] to-[#6082B6]">
-      <div className="bg-white bg-opacity-20 backdrop-blur-md rounded-lg shadow-lg p-8 max-w-md w-full text-center space-y-6">
+      <div className="bg-white mx-4 sm:mx-2 bg-opacity-20 backdrop-blur-md rounded-lg shadow-lg p-8 max-w-md w-full text-center space-y-6">
         <h2 className="text-3xl font-semibold text-white">Login</h2>
         <p className="text-gray-200">
           Welcome back! Please login to your account.

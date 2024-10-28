@@ -1,19 +1,14 @@
 import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
-import Dashboard from './pages/Dashboard';
+import PrivateRoute from './utils/PrivateRoutes';
 
 const Login = React.lazy(() => import('./pages/Login'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const Users = React.lazy(() => import('./pages/Users'));
 
 function App() {
-  const { user, login } = useAuth();
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      login(token); 
-    }
-  }, []);
+  const { user } = useAuth();
 
   return (
     <Router>
@@ -23,7 +18,19 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"
-            element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
+            element={
+              <PrivateRoute user={user}>
+                <Dashboard user={user} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <PrivateRoute user={user} requiredRole="Admin">
+                <Users user={user} /> 
+              </PrivateRoute>
+            }
           />
         </Routes>
       </Suspense>
