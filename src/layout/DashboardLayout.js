@@ -4,11 +4,12 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { ArrowUpOnSquareIcon } from "@heroicons/react/24/outline";
 import FileUpload from "../components/FileUpload";
+import { useAuth } from "../hooks/useAuth";
 
 const DashboardLayout = ({ children, title }) => {
   const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [toggleFileUpload, setToggleFileUpload] = useState(false);
-
+  const {user} =useAuth()
   const toggleSidebar = () => {
     setSidebarCollapsed(!isSidebarCollapsed);
   };
@@ -23,6 +24,7 @@ const DashboardLayout = ({ children, title }) => {
         />
         <header className="flex justify-between items-center p-4 bg-white shadow text-lg font-semibold">
           <div>{title}</div>
+          {user && user.role === 'Admin' && 
           <button
             onClick={() => setToggleFileUpload(!toggleFileUpload)}
             className="flex items-center bg-[#5D3FD3] text-white px-3 py-2 rounded hover:bg-blue-600 transition font-medium text-sm"
@@ -30,6 +32,7 @@ const DashboardLayout = ({ children, title }) => {
             <ArrowUpOnSquareIcon className="h-5 w-5 mr-2" />
             Upload
           </button>
+          }
         </header>
         <MainContent>
           {toggleFileUpload && <FileUpload />}
