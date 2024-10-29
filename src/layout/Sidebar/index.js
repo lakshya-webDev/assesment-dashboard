@@ -24,7 +24,7 @@ const Sidebar = ({ isCollapsed }) => {
     <div
       className={`${
         isCollapsed ? "w-16" : "w-64"
-      } transition-all duration-300 bg-gradient-to-br from-[#1434A4] via-[#5D3FD3] to-[#6082B6] text-white h-screen p-4`}
+      } transition-all duration-300 bg-gradient-to-br from-[#1434A4] via-[#5D3FD3] to-[#6082B6] text-white  p-4`}
     >
       <div className="flex items-center mb-6">
         <ChartBarSquareIcon className="h-6 w-6 mr-2" />
